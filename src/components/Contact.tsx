@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Twitter, Send, CheckCircle, Copy, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Twitter, Send, CheckCircle, Copy, AlertCircle, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface ContactProps {
@@ -14,9 +14,10 @@ export default function Contact({ theme }: ContactProps) {
   const [errorMsg, setErrorMsg] = useState('');
 
   const coordinates = [
-    { label: 'Email Address', value: 'omolayemi89@gmail.com', icon: Mail, copyable: true },
-    { label: 'Mobile Contact', value: '+234 800 000 0000', icon: Phone, copyable: true },
-    { label: 'Primary Location', value: 'Nigeria, West Africa', icon: MapPin, copyable: false },
+    { label: 'Founder', value: 'Ahmed Abdulsalam', icon: User, copyable: false },
+    { label: 'Email Address', value: 'Ahmedakinola300@gmail.com', href: 'mailto:Ahmedakinola300@gmail.com', icon: Mail, copyable: true },
+    { label: 'Phone Number', value: '+234 707 027 8238', href: 'tel:+2347070278238', icon: Phone, copyable: true },
+    { label: 'Location', value: 'Nigeria', icon: MapPin, copyable: false },
   ];
 
   const socialLinks = [
@@ -108,9 +109,18 @@ export default function Contact({ theme }: ContactProps) {
                           <span className="block text-[10px] font-mono uppercase text-slate-400 tracking-wider">
                             {coord.label}
                           </span>
-                          <span className="block text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mt-0.5 select-all">
-                            {coord.value}
-                          </span>
+                          {coord.href ? (
+                            <a
+                              href={coord.href}
+                              className="block text-xs sm:text-sm font-semibold text-purple-600 dark:text-purple-400 hover:underline hover:text-purple-500 dark:hover:text-purple-300 mt-0.5 select-all"
+                            >
+                              {coord.value}
+                            </a>
+                          ) : (
+                            <span className="block text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mt-0.5 select-all">
+                              {coord.value}
+                            </span>
+                          )}
                         </div>
                       </div>
 
@@ -207,12 +217,10 @@ export default function Contact({ theme }: ContactProps) {
                         <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                         <span>{errorMsg}</span>
                       </div>
-                    )}
-
-                    {/* Name */}
+                    )}                     {/* Name */}
                     <div className="text-left space-y-1.5">
                       <label className="block text-[11px] font-mono uppercase tracking-widest text-slate-400 font-bold">
-                        Full Name / Agency <span className="text-purple-500">*</span>
+                        Full Name <span className="text-purple-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -240,7 +248,7 @@ export default function Contact({ theme }: ContactProps) {
                         id="contact-email-input"
                         value={formData.email}
                         onChange={handleFormChange}
-                        placeholder="omolayemi89@gmail.com"
+                        placeholder="Ahmedakinola300@gmail.com"
                         className={`w-full px-4 py-3 rounded-xl border text-xs sm:text-sm font-sans focus:outline-hidden focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all ${
                           isDark
                             ? 'bg-white/5 border-white/10 text-white placeholder-slate-600'
@@ -252,7 +260,7 @@ export default function Contact({ theme }: ContactProps) {
                     {/* Subject */}
                     <div className="text-left space-y-1.5">
                       <label className="block text-[11px] font-mono uppercase tracking-widest text-slate-400 font-bold">
-                        Subject Matter
+                        Subject
                       </label>
                       <input
                         type="text"
@@ -272,7 +280,7 @@ export default function Contact({ theme }: ContactProps) {
                     {/* Message */}
                     <div className="text-left space-y-1.5">
                       <label className="block text-[11px] font-mono uppercase tracking-widest text-slate-400 font-bold">
-                        Message Content <span className="text-purple-500">*</span>
+                        Message <span className="text-purple-500">*</span>
                       </label>
                       <textarea
                         name="message"
@@ -294,17 +302,17 @@ export default function Contact({ theme }: ContactProps) {
                       type="submit"
                       id="contact-submit-btn"
                       disabled={isSubmitting}
-                      className="w-full py-4 rounded-xl text-xs sm:text-sm font-bold tracking-widest uppercase text-white bg-linear-to-r from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 active:scale-98 transition-all duration-200 flex items-center justify-center space-x-2.5 cursor-pointer disabled:opacity-50"
+                      className="w-full py-4 rounded-xl text-xs sm:text-sm font-bold tracking-widest uppercase text-white bg-linear-to-r from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 hover:shadow-lg hover:shadow-purple-500/30 active:scale-98 transition-all duration-200 flex items-center justify-center space-x-2.5 cursor-pointer disabled:opacity-50 shadow-md shadow-purple-500/10"
                     >
                       {isSubmitting ? (
                         <>
                           <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          <span>TRANSMITTING WAVE SIGNAL...</span>
+                          <span>SENDING MESSAGE...</span>
                         </>
                       ) : (
                         <>
                           <Send className="w-4 h-4" />
-                          <span>TRANSMIT SIGNAL</span>
+                          <span>SEND MESSAGE</span>
                         </>
                       )}
                     </button>
